@@ -21,7 +21,7 @@ namespace ThreadsChallenge
             ConcurrentQueue<int> ConcurrentQueueData3 = new ConcurrentQueue<int>();
             for (int i=0; i<100; i++)
             {
-                var random = r.Next(1, 100000);
+                var random = r.Next(1, 10000);
                 ListData.Add(random);
                 ConcurrentQueueData.Enqueue(random);
                 ConcurrentQueueData2.Enqueue(random);

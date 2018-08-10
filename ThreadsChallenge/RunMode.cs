@@ -17,20 +17,25 @@ namespace ThreadsChallenge
           this.threads = threads;
           this.options  = new ParallelOptions { MaxDegreeOfParallelism = threads };
         }
+
+        private void calculate(int num)
+        {
+            double x;
+            if (num % 2 == 0) x = Math.Sqrt(num);
+            //Console.WriteLine($"Even found: {num} SQRT: {Math.Sqrt(num)}");
+            else
+            {
+                BigInteger mult = 1;
+                for (int i = 1; i <= num; i++) mult *= i;
+                //Console.WriteLine($"Odd found: {num} Factorial: {mult}");
+            }
+        }
         #region ParallelForeach
         public void ParallelForeach(List<int> data) 
         {            
             Parallel.ForEach(data, options, (num) =>
             {
-                double x;
-                if (num % 2 == 0) x = Math.Sqrt(num);
-                //Console.WriteLine($"Even found: {num} SQRT: {Math.Sqrt(num)}");
-                else
-                {
-                    BigInteger mult = 1;
-                    for (int i = 1; i <= num; i++) mult *= i;
-                    //Console.WriteLine($"Odd found: {num} Factorial: {mult}");
-                }
+                calculate(num);
             }
             );
         }
@@ -39,15 +44,7 @@ namespace ThreadsChallenge
         {
             Parallel.ForEach(data, options, (num) =>
             {
-                double x;
-                if (num % 2 == 0) x = Math.Sqrt(num);
-                //Console.WriteLine($"Even found: {num} SQRT: {Math.Sqrt(num)}");
-                else
-                {
-                    BigInteger mult = 1;
-                    for (int i = 1; i <= num; i++) mult *= i;
-                    //Console.WriteLine($"Odd found: {num} Factorial: {mult}");
-                }
+                calculate(num);
             }
             );
         }
@@ -58,14 +55,7 @@ namespace ThreadsChallenge
         {
             foreach (int num in data)
             {
-                double x;
-                if (num % 2 == 0) x = Math.Sqrt(num); //Console.WriteLine($"Even found: {num} SQRT: {Math.Sqrt(num)}");
-                else
-                {
-                    BigInteger mult = 1;
-                    for (int i = 1; i <= num; i++) mult *= i;
-                    //Console.WriteLine($"Odd found: {num} Factorial: {mult}");
-                }
+                calculate(num);
             }            
         }
         #endregion
@@ -82,14 +72,7 @@ namespace ThreadsChallenge
                     while (data.Count > 0)
                     {
                         data.TryDequeue(out int num);
-                        double x;
-                        if (num % 2 == 0) x = Math.Sqrt(num); //Console.WriteLine($"Even found: {num} SQRT: {Math.Sqrt(num)}");
-                        else
-                        {
-                            BigInteger mult = 1;
-                            for (int j = 1; j <= num; j++) mult *= i;
-                            //Console.WriteLine($"Odd found: {num} Factorial: {mult}");
-                        }
+                        calculate(num);
                     }
                 });
             }
@@ -112,14 +95,7 @@ namespace ThreadsChallenge
                     while (e.MoveNext())
                     {
                         var num = e.Current;
-                        double x;
-                        if (num % 2 == 0) x = Math.Sqrt(num); //Console.WriteLine($"Even found: {num} SQRT: {Math.Sqrt(num)}");
-                        else
-                        {
-                            BigInteger mult = 1;
-                            for (int j = 1; j <= num; j++) mult *= i;
-                            //Console.WriteLine($"Odd found: {num} Factorial: {mult}");
-                        }
+                        calculate(num);
                     }
                 });
             }
@@ -137,15 +113,7 @@ namespace ThreadsChallenge
             data.AsParallel().WithDegreeOfParallelism(threads).ForAll(
                 (num) =>
                 {
-                    double x;
-                    if (num % 2 == 0) x = Math.Sqrt(num);
-                    //Console.WriteLine($"Even found: {num} SQRT: {Math.Sqrt(num)}");
-                    else
-                    {
-                        BigInteger mult = 1;
-                        for (int i = 1; i <= num; i++) mult *= i;
-                        //Console.WriteLine($"Odd found: {num} Factorial: {mult}");
-                    }
+                    calculate(num);
                 }
                 );
         }
@@ -156,14 +124,7 @@ namespace ThreadsChallenge
                 {
                     data.TryDequeue(out num);
                     double x;
-                    if (num % 2 == 0) x = Math.Sqrt(num);
-                    //Console.WriteLine($"Even found: {num} SQRT: {Math.Sqrt(num)}");
-                    else
-                    {
-                        BigInteger mult = 1;
-                        for (int i = 1; i <= num; i++) mult *= i;
-                        //Console.WriteLine($"Odd found: {num} Factorial: {mult}");
-                    }
+                    calculate(num);
                 }
                 );
         }
