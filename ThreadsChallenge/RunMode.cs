@@ -18,7 +18,7 @@ namespace ThreadsChallenge
           this.options  = new ParallelOptions { MaxDegreeOfParallelism = threads };
         }
 
-        private void calculate(int num)
+        private void Calculate(int num)
         {
             double x;
             if (num % 2 == 0) x = Math.Sqrt(num);
@@ -30,12 +30,13 @@ namespace ThreadsChallenge
                 //Console.WriteLine($"Odd found: {num} Factorial: {mult}");
             }
         }
+
         #region ParallelForeach
         public void ParallelForeach(List<int> data) 
         {            
             Parallel.ForEach(data, options, (num) =>
             {
-                calculate(num);
+                Calculate(num);
             }
             );
         }
@@ -44,7 +45,7 @@ namespace ThreadsChallenge
         {
             Parallel.ForEach(data, options, (num) =>
             {
-                calculate(num);
+                Calculate(num);
             }
             );
         }
@@ -55,7 +56,7 @@ namespace ThreadsChallenge
         {
             foreach (int num in data)
             {
-                calculate(num);
+                Calculate(num);
             }            
         }
         #endregion
@@ -72,7 +73,7 @@ namespace ThreadsChallenge
                     while (data.Count > 0)
                     {
                         data.TryDequeue(out int num);
-                        calculate(num);
+                        Calculate(num);
                     }
                 });
             }
@@ -95,7 +96,7 @@ namespace ThreadsChallenge
                     while (e.MoveNext())
                     {
                         var num = e.Current;
-                        calculate(num);
+                        Calculate(num);
                     }
                 });
             }
@@ -113,7 +114,7 @@ namespace ThreadsChallenge
             data.AsParallel().WithDegreeOfParallelism(threads).ForAll(
                 (num) =>
                 {
-                    calculate(num);
+                    Calculate(num);
                 }
                 );
         }
@@ -123,8 +124,7 @@ namespace ThreadsChallenge
                 (num) =>
                 {
                     data.TryDequeue(out num);
-                    double x;
-                    calculate(num);
+                    Calculate(num);
                 }
                 );
         }

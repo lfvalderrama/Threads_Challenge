@@ -10,7 +10,7 @@ namespace ThreadsChallenge
     {
         static void Main(string[] args)
         {
-            int numThreads = 4;
+            int numThreads = 20;
 
 
 
@@ -28,7 +28,7 @@ namespace ThreadsChallenge
                 ConcurrentQueueData3.Enqueue(random);
             }
 
-            RunMode runMode = new RunMode(4);            
+            RunMode runMode = new RunMode(numThreads);            
             
             var watchParallel = System.Diagnostics.Stopwatch.StartNew();
             runMode.ParallelForeach(ListData); //Parallel ForEach List
@@ -60,10 +60,10 @@ namespace ThreadsChallenge
             watchParallel.Stop();
             Console.WriteLine($"Linq Parallel ConcurrentQueueData: {watchParallel.ElapsedMilliseconds} ms");
             
-            watchParallel = System.Diagnostics.Stopwatch.StartNew();
+            var watchNoParallel = System.Diagnostics.Stopwatch.StartNew();
             runMode.NoParallel(ListData); //No Parallel
             watchParallel.Stop();
-            Console.WriteLine($"No Parallel: {watchParallel.ElapsedMilliseconds} ms");
+            Console.WriteLine($"No Parallel: {watchNoParallel.ElapsedMilliseconds} ms");
 
             Console.ReadKey();
         }
