@@ -4,27 +4,28 @@ using System.Threading.Tasks;
 
 namespace ThreadsChallenge
 {
-    class ParallelForEach : RunMode, IRunMode
+    class ParallelForEach : IRunMode
     {
-        public ParallelForEach(int threads)
+        private readonly ICalculus _calculus;
+        public ParallelForEach(ICalculus calculus)
         {
-            this._threads = threads;
-            this._options = new ParallelOptions { MaxDegreeOfParallelism = threads };
-
+            _calculus = calculus;
         }
 
-        public void RunConcurrentQueue(ConcurrentQueue<int> data)
+        public void RunConcurrentQueue(ConcurrentQueue<int> data, int threads)
         {
-            Parallel.ForEach(data, _options, (num) =>
+            var options = new ParallelOptions { MaxDegreeOfParallelism = threads };
+            Parallel.ForEach(data, options, (num) =>
             {
                 _calculus.Calculate(num);
             }
             );
         }
 
-        public void RunList(List<int> data)
+        public void RunList(List<int> data, int threads)
         {
-            Parallel.ForEach(data, _options, (num) =>
+            var options = new ParallelOptions { MaxDegreeOfParallelism = threads };
+            Parallel.ForEach(data, options, (num) =>
             {
                 _calculus.Calculate(num);
             }

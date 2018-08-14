@@ -3,7 +3,12 @@ using System.Numerics;
 
 namespace ThreadsChallenge
 {
-    class Calculus
+    public interface ICalculus
+    {
+        void Calculate(int num);
+    }
+
+    public class Calculus : ICalculus
     {
         public void Calculate(int num)
         {

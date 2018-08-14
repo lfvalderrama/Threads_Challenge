@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 namespace ThreadsChallenge
 {
-    class TaskParallel : RunMode, IRunMode
+    class TaskParallel : IRunMode
     {
-        public TaskParallel(int threads)
+        private readonly ICalculus _calculus;
+        public TaskParallel(ICalculus calculus)
         {
-            this._threads = threads;
+            _calculus = calculus;
         }
 
-        public void RunConcurrentQueue(ConcurrentQueue<int> data)
+        public void RunConcurrentQueue(ConcurrentQueue<int> data, int threads)
         {
-            Task[] tasks = new Task[_threads];
+            Task[] tasks = new Task[threads];
 
-            for (int i = 0; i < _threads; i++)
+            for (int i = 0; i < threads; i++)
             {
                 tasks[i] = new Task(() =>
                 {
@@ -35,12 +36,12 @@ namespace ThreadsChallenge
             Task.WaitAll(tasks);
         }
 
-        public void RunList(List<int> data)
+        public void RunList(List<int> data, int threads)
         {
-            Task[] tasks = new Task[_threads];
+            Task[] tasks = new Task[threads];
             var e = data.GetEnumerator();
 
-            for (int i = 0; i < _threads; i++)
+            for (int i = 0; i < threads; i++)
             {
                 tasks[i] = new Task(() =>
                 {

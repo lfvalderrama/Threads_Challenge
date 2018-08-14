@@ -6,15 +6,8 @@ namespace ThreadsChallenge
 {
     public interface IRunMode
     {
-        void RunList(List<int> data);
-        void RunConcurrentQueue(ConcurrentQueue<int> data);
-    }
-
-    abstract class RunMode
-    {
-        protected ParallelOptions _options;
-        protected int _threads;
-        protected Calculus _calculus;
+        void RunList(List<int> data, int threads);
+        void RunConcurrentQueue(ConcurrentQueue<int> data, int threads);
     }
 
 }

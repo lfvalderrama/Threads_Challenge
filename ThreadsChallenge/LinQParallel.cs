@@ -6,16 +6,18 @@ using System.Text;
 
 namespace ThreadsChallenge
 {
-    class LinQParallel : RunMode, IRunMode
+    class LinQParallel : IRunMode
     {
-        public LinQParallel(int threads)
+        private readonly ICalculus _calculus;
+
+        public LinQParallel(ICalculus calculus)
         {
-            this._threads = threads;
+            _calculus = calculus;
         }
 
-        public void RunConcurrentQueue(ConcurrentQueue<int> data)
+        public void RunConcurrentQueue(ConcurrentQueue<int> data, int threads)
         {
-            data.AsParallel().WithDegreeOfParallelism(_threads).ForAll(
+            data.AsParallel().WithDegreeOfParallelism(threads).ForAll(
                 (num) =>
                 {
                     _calculus.Calculate(num);
@@ -23,9 +25,9 @@ namespace ThreadsChallenge
                 );
         }
 
-        public void RunList(List<int> data)
+        public void RunList(List<int> data, int threads)
         {
-            data.AsParallel().WithDegreeOfParallelism(_threads).ForAll(
+            data.AsParallel().WithDegreeOfParallelism(threads).ForAll(
                (num) =>
                {
                    _calculus.Calculate(num);

@@ -5,9 +5,16 @@ using System.Text;
 
 namespace ThreadsChallenge
 {
-    class NoParallel : RunMode, IRunMode
+    class NoParallel :  IRunMode
     {
-        public void RunConcurrentQueue(ConcurrentQueue<int> data)
+        private readonly ICalculus _calculus;
+
+        public NoParallel(ICalculus calculus)
+        {
+            _calculus = calculus;
+        }
+        
+        public void RunConcurrentQueue(ConcurrentQueue<int> data, int threads)
         {
             while (data.Count > 0)
             {
@@ -16,7 +23,7 @@ namespace ThreadsChallenge
             }
         }
 
-        public void RunList(List<int> data)
+        public void RunList(List<int> data, int threads)
         {
             foreach (int num in data)
             {
