@@ -8,7 +8,6 @@ namespace ThreadsChallenge
     {
         void RunList(List<int> data, int threads);
         void RunConcurrentQueue(ConcurrentQueue<int> data, int threads);
-
     }
 
 }
