@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace ThreadsChallenge
 {
-    class ParallelForEach : IRunMode
+    class ForeachParallel : IRunMode
     {
         private readonly ICalculus _calculus;
-        public ParallelForEach(ICalculus calculus)
+        public ForeachParallel(ICalculus calculus)
         {
             _calculus = calculus;
         }

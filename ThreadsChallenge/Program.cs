@@ -34,10 +34,12 @@ namespace ThreadsChallenge
                 //Console.WriteLine(parallelForEach.GetRunTimeConqurrentQueue(ConcurrentQueueData, numThreads));
                 //Console.WriteLine(parallelForEach.GetRunTimeList(ListData, numThreads));
 
-                var LinQ = scope.Resolve<RunTimeParallelLinQ>();
+                var LinQ = scope.Resolve<ExcecutionTime>();
                 
                 Console.WriteLine(LinQ.GetRunTimeConqurrentQueue(ConcurrentQueueData, numThreads, ThreadsTypes.ParallelForeach));
                 Console.WriteLine(LinQ.GetRunTimeList(ListData, numThreads, ThreadsTypes.LinQ));
+                Console.WriteLine(LinQ.GetRunTimeConqurrentQueue(ConcurrentQueueData, numThreads, ThreadsTypes.NoParallel));
+                Console.WriteLine(LinQ.GetRunTimeList(ListData, numThreads, ThreadsTypes.Task));
 
             }
 
@@ -84,10 +86,12 @@ namespace ThreadsChallenge
         private static void BindingDependcies()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<RunTimeParallelLinQ>();
+            builder.RegisterType<ExcecutionTime>();
             builder.RegisterType<Calculus>().As<ICalculus>();
-            builder.RegisterType<ParallelForEach>().Keyed<IRunMode>(ThreadsTypes.ParallelForeach);
+            builder.RegisterType<ForeachParallel>().Keyed<IRunMode>(ThreadsTypes.ParallelForeach);
             builder.RegisterType<LinQParallel>().Keyed<IRunMode>(ThreadsTypes.LinQ);
+            builder.RegisterType<NoParallel>().Keyed<IRunMode>(ThreadsTypes.NoParallel);
+            builder.RegisterType<TaskParallel>().Keyed<IRunMode>(ThreadsTypes.Task);
             Container = builder.Build();
         }
 
